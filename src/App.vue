@@ -1,60 +1,44 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+    <v-app-bar src="https://picsum.photos/1920/1080?random" flat prominent app dark>
+      <v-menu absolute offset-x>
+        <template v-slot:activator="{ on, attrs }">
+          <v-app-bar-nav-icon v-bind="attrs" v-on="on"></v-app-bar-nav-icon>
+        </template>
+        <about></about>
+      </v-menu>
+      
+      <v-toolbar-title>DK Design Elements</v-toolbar-title>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+      <template v-slot:extension>
+        <v-tabs align-with-title>
+          <v-tab v-for="item in items" :key="item.title" :to="item.to">{{ item.title }}</v-tab>
+        </v-tabs>
+      </template>
     </v-app-bar>
 
     <v-main>
-      <HelloWorld/>
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
-
-export default {
-  name: 'App',
-
-  components: {
-    HelloWorld,
-  },
-
-  data: () => ({
-    //
-  }),
-};
+import About from './views/About.vue'
+  export default {
+    components: { 'about': About },
+    data () {
+      return {
+        aboutDialog: false,
+        items: [
+          { title: 'New Arrivals', icon: 'mdi-view-dashboard', to: '/' },
+          { title: 'Women', icon: 'mdi-forum', to: '/women' },
+          { title: 'Men', icon: 'mdi-forum', to: '/men' },
+          { title: 'Girls', icon: 'mdi-forum', to: '/girls' },
+          { title: 'Boys', icon: 'mdi-forum', to: '/boys' },
+          { title: 'Accessories', icon: 'mdi-forum', to: '/accessories' }
+        ],
+      }
+    },
+  }
 </script>
