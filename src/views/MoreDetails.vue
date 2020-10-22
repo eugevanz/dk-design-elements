@@ -2,10 +2,10 @@
     <v-container>
         <v-row>
             <v-col cols="12" md="2" class="hidden-sm-and-down">
-                <v-img v-for="(item,i) in items" :key="i" :src="item.src" class="mb-5"></v-img>
+                <v-img v-for="(item,i) in items" :key="i" :src="item.src" @click="model = item.index" class="mb-5"></v-img>
             </v-col>
             <v-col cols="12" sm="6">
-                <v-carousel hide-delimiters>
+                <v-carousel v-model="model" :show-arrows="false">
                     <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src"></v-carousel-item>
                 </v-carousel>
             </v-col>
@@ -49,13 +49,14 @@
 export default {
     data: () => ({
         items: [
-            { src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg', },
-            { src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg', },
-            { src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg', },
-            { src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg', },
+            { index: 0, src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg', },
+            { index: 1, src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg', },
+            { index: 2, src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg', },
+            { index: 3, src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg', },
         ],
         selection: 1,
         loading: false,
+        model: 0
     }),
     methods: {
         reserve() {
